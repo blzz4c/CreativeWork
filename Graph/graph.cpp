@@ -338,8 +338,6 @@ void Graph::getGraphInfo(){
     infoWindow->setItem(0, 1, new QTableWidgetItem(QString::number(vertexNum)));
     infoWindow->setItem(1, 0, new QTableWidgetItem("Номер дуги"));
     infoWindow->setItem(1, 1, new QTableWidgetItem(QString::number(edgeNum)));
-    infoWindow->setItem(2, 0, new QTableWidgetItem("Связный граф (1-true)"));
-    infoWindow->setItem(2, 1, new QTableWidgetItem(QString::number(connected)));
 
     QString dijkstra1 = "Алгоритм Дейкстры по индексу ";
     if(flag==true && dijkstraSignal()!=-1)
