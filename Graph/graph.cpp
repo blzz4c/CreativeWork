@@ -94,77 +94,66 @@ void Graph::createTabWidget(const QRectF &rect){
     QGridLayout *gridBuild = new QGridLayout();
 
     QVBoxLayout *buildTabLayout = new QVBoxLayout;
-    QPushButton *addVertexButton = new QPushButton();
-    gridBuild->addWidget(addVertexButton, 0, 0);
-    addVertexButton->setText(tr("Добавить\nвершину"));
-    addVertexButton->setFont(textfont);
-    addVertexButton->setMaximumSize(QSize(150, 2000));
-    addVertexButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                   "QPushButton:pressed{background-color: lightBlue;} "
-                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-    connect(addVertexButton, &QPushButton::clicked, this, &Graph::insertVertex);
-
-    QPushButton *eraseVertexButton = new QPushButton();
-    gridBuild->addWidget(eraseVertexButton, 1, 0);
-    eraseVertexButton->setText(tr("Удалить\nвершину"));
-    eraseVertexButton->setFont(textfont);
-    eraseVertexButton->setMaximumSize(QSize(150, 2000));
-    eraseVertexButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                   "QPushButton:pressed{background-color: lightBlue;} "
-                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-
-    connect(eraseVertexButton, &QPushButton::clicked, this, &Graph::createEraseVertexWindow);
-
-    QPushButton *vertexInfoButton = new QPushButton();
-    gridBuild->addWidget(vertexInfoButton, 2, 0);
-    vertexInfoButton->setText(tr("Информация\nо вершине"));
-    vertexInfoButton->setFont(textfont);
-    vertexInfoButton->setMaximumSize(QSize(150, 2000));
-    vertexInfoButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                   "QPushButton:pressed{background-color: lightBlue;} "
-                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-
-    connect(vertexInfoButton, &QPushButton::clicked, this, &Graph::createVertexInfoWindow);
-
-    buildTabLayout->addWidget(addVertexButton);
-    buildTabLayout->addWidget(eraseVertexButton);
-    buildTabLayout->addWidget(vertexInfoButton);
 
     QPushButton *addEdgeButton = new QPushButton();
-    gridBuild->addWidget(addEdgeButton, 0, 1);
+    gridBuild->addWidget(addEdgeButton, 0, 0);
     addEdgeButton->setText(tr("Добавить\nдугу"));
     addEdgeButton->setFont(textfont);
     addEdgeButton->setMaximumSize(QSize(150, 2000));
-    addEdgeButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                 "QPushButton:pressed{background-color: lightBlue;} "
+    addEdgeButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                                 "QPushButton:pressed{background-color: lightGreen;} "
                                  "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(addEdgeButton, &QPushButton::clicked, this, &Graph::createAddEdgeWindow);
 
     QPushButton *updateWeightButton = new QPushButton();
-    gridBuild->addWidget(updateWeightButton, 1, 1);
+    gridBuild->addWidget(updateWeightButton, 1, 0);
     updateWeightButton->setText(tr("Обновить\nвес"));
     updateWeightButton->setFont(textfont);
     updateWeightButton->setMaximumSize(QSize(150, 2000));
-    updateWeightButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                  "QPushButton:pressed{background-color: lightBlue;} "
+    updateWeightButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                                  "QPushButton:pressed{background-color: lightGreen;} "
                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(updateWeightButton, &QPushButton::clicked, this, &Graph::createUpdateWeightWindow);
 
 
 
     QPushButton *eraseEdgeButton = new QPushButton();
-    gridBuild->addWidget(eraseEdgeButton, 2, 1);
+    gridBuild->addWidget(eraseEdgeButton, 2, 0);
     eraseEdgeButton->setText(tr("Удалить\nдугу"));
     eraseEdgeButton->setFont(textfont);
     eraseEdgeButton->setMaximumSize(QSize(150, 2000));
-    eraseEdgeButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                                 "QPushButton:pressed{background-color: lightBlue;} "
+    eraseEdgeButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                                 "QPushButton:pressed{background-color: lightGreen;} "
                                  "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(eraseEdgeButton, &QPushButton::clicked, this, &Graph::createEraseEdgeWindow);
 
     buildTabLayout->addWidget(addEdgeButton);
     buildTabLayout->addWidget(updateWeightButton);
     buildTabLayout->addWidget(eraseEdgeButton);
+
+    QPushButton *addVertexButton = new QPushButton();
+    gridBuild->addWidget(addVertexButton, 0, 1);
+    addVertexButton->setText(tr("Добавить\nвершину"));
+    addVertexButton->setFont(textfont);
+    addVertexButton->setMaximumSize(QSize(150, 2000));
+    addVertexButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                                   "QPushButton:pressed{background-color: lightGreen;} "
+                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
+    connect(addVertexButton, &QPushButton::clicked, this, &Graph::insertVertex);
+
+    QPushButton *eraseVertexButton = new QPushButton();
+    gridBuild->addWidget(eraseVertexButton, 1, 1);
+    eraseVertexButton->setText(tr("Удалить\nвершину"));
+    eraseVertexButton->setFont(textfont);
+    eraseVertexButton->setMaximumSize(QSize(150, 2000));
+    eraseVertexButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                                   "QPushButton:pressed{background-color: lightGreen;} "
+                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
+
+    connect(eraseVertexButton, &QPushButton::clicked, this, &Graph::createEraseVertexWindow);
+
+    buildTabLayout->addWidget(addVertexButton);
+    buildTabLayout->addWidget(eraseVertexButton);
 
     QGridLayout *gridGraph = new QGridLayout();
 
@@ -175,8 +164,8 @@ void Graph::createTabWidget(const QRectF &rect){
     dfsButton->setText(tr("Поиск в\nглубину"));
     dfsButton->setFont(textfont);
     dfsButton->setMaximumSize(QSize(150, 2000));
-    dfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkBlue;} "
-                             "QToolButton:pressed{background-color: lightBlue;} "
+    dfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
+                             "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(dfsButton, &QPushButton::clicked, this, &Graph::createDFSWindow);
 
@@ -185,8 +174,8 @@ void Graph::createTabWidget(const QRectF &rect){
     bfsButton->setText(tr("Поиск в\nширину"));
     bfsButton->setFont(textfont);
     bfsButton->setMaximumSize(QSize(150, 2000));
-    bfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkBlue;} "
-                             "QToolButton:pressed{background-color: lightBlue;} "
+    bfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
+                             "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(bfsButton, &QPushButton::clicked, this, &Graph::createBFSWindow);
 
@@ -195,8 +184,8 @@ void Graph::createTabWidget(const QRectF &rect){
     dijkstraButton->setText(tr("Алгоритм\nДейкстры"));
     dijkstraButton->setFont(textfont);
     dijkstraButton->setMaximumSize(QSize(150, 2000));
-    dijkstraButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkBlue;} "
-                             "QToolButton:pressed{background-color: lightBlue;} "
+    dijkstraButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
+                             "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(dijkstraButton, &QPushButton::clicked, this, &Graph::createDijkstraWindow);
 
@@ -205,8 +194,8 @@ void Graph::createTabWidget(const QRectF &rect){
     kommiButton->setText(tr("Задача\nКоммивояжера"));
     kommiButton->setFont(textfont);
     kommiButton->setMaximumSize(QSize(150, 2000));
-    kommiButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkBlue;} "
-                             "QToolButton:pressed{background-color: lightBlue;} "
+    kommiButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
+                             "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(kommiButton, &QPushButton::clicked, this, &Graph::kommi);
 
@@ -215,8 +204,8 @@ void Graph::createTabWidget(const QRectF &rect){
     resetButton->setText(tr("Обновить\nграф"));
     resetButton->setFont(textfont);
     resetButton->setMaximumSize(QSize(150, 2000));
-    resetButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                             "QPushButton:pressed{background-color: lightBlue;} "
+    resetButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                             "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(resetButton, &QPushButton::clicked, this, &Graph::reset);
 
@@ -225,8 +214,8 @@ void Graph::createTabWidget(const QRectF &rect){
     clearButton->setText(tr("Удалить\nграф"));
     clearButton->setFont(textfont);
     clearButton->setMaximumSize(QSize(150, 2000));
-    clearButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                             "QPushButton:pressed{background-color: lightBlue;} "
+    clearButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                             "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(clearButton, &QPushButton::clicked, this, &Graph::clear);
 
@@ -235,8 +224,8 @@ void Graph::createTabWidget(const QRectF &rect){
     graphInfoButton->setText(tr("Информация\nо графе"));
     graphInfoButton->setFont(textfont);
     graphInfoButton->setMaximumSize(QSize(150, 2000));
-    graphInfoButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkBlue;} "
-                             "QPushButton:pressed{background-color: lightBlue;} "
+    graphInfoButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
+                             "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(graphInfoButton, &QPushButton::clicked, this, &Graph::getGraphInfo);
 
@@ -293,51 +282,10 @@ void Graph::eraseVertex(int vertexIndex){
     vertexNum--;
 }
 
-void Graph::getVertexInfo(int vertexIndex){
-    QTableWidget *infoWindow = new QTableWidget;
-    Vertex *temp = vertexList[vertexIndex];
-    int vertexDegree = temp->getDegree();
-
-    infoWindow->setRowCount(vertexDegree + 5);
-    infoWindow->setColumnCount(2);
-    infoWindow->setItem(0, 0, new QTableWidgetItem("Свойство"));
-    infoWindow->setItem(0, 1, new QTableWidgetItem("Значение"));
-
-    infoWindow->setItem(1, 0, new QTableWidgetItem("Индекс вершины"));
-    infoWindow->setItem(1, 1, new QTableWidgetItem(QString::number(vertexIndex)));
-
-    infoWindow->setItem(3, 0, new QTableWidgetItem("Посещён"));
-    bool visited = false;
-    if(vertexList[vertexIndex]->getColor() == "black"){
-        visited = true;
-    }
-    infoWindow->setItem(3, 1, new QTableWidgetItem(QString::number(visited)));
-
-    infoWindow->setItem(4, 0, new QTableWidgetItem("Степень вершины"));
-    infoWindow->setItem(4, 1, new QTableWidgetItem(QString::number(vertexDegree)));
-
-    infoWindow->setItem(5, 0, new QTableWidgetItem("Смежные вершины"));
-    int rowCounter = 5;
-    for(Edge *edge : vertexList[vertexIndex]->getEdges()){
-        QString adjacentVertex = QString::number(vertexIndex) + " -> " + QString::number(edge->destVertex()->getIndex()) + " ; вес: " + QString::number(edge->getWeight());
-        infoWindow->setItem(rowCounter, 1, new QTableWidgetItem(adjacentVertex));
-        rowCounter++;
-    }
-    infoWindow->setWindowTitle(tr("Информационное окно вершины"));
-    infoWindow->setColumnWidth(0, 140);
-    infoWindow->setColumnWidth(1, 220);
-    infoWindow->setFixedSize(QSize(380, 400));
-    infoWindow->show();
-}
-
 void Graph::getGraphInfo(){
-    int rows = vertexList.size() + 8;
+    int rows = vertexList.size() + 5;
     int cols = vertexList.size() + 1;
     QTableWidget *infoWindow = new QTableWidget(rows, cols);
-    infoWindow->setItem(0, 0, new QTableWidgetItem("Номер вершины"));
-    infoWindow->setItem(0, 1, new QTableWidgetItem(QString::number(vertexNum)));
-    infoWindow->setItem(1, 0, new QTableWidgetItem("Номер дуги"));
-    infoWindow->setItem(1, 1, new QTableWidgetItem(QString::number(edgeNum)));
 
     QString dijkstra1 = "Алгоритм Дейкстры по индексу ";
     if(flag==true && dijkstraSignal()!=-1)
@@ -345,53 +293,55 @@ void Graph::getGraphInfo(){
         QVector<int> k=dijkstra(dijkstraSignal());
         dijkstra1+= QString::number(dijkstraSignal());
         for(int i{0}; i < k.size(); i++){
-            infoWindow->setItem(3, i+1, new QTableWidgetItem(QString::number(k[i])));
+            infoWindow->setItem(0, i+1, new QTableWidgetItem(QString::number(k[i])));
         }
     }
 
-    infoWindow->setItem(3, 0, new QTableWidgetItem(dijkstra1));
+    infoWindow->setItem(0, 0, new QTableWidgetItem(dijkstra1));
 
     QString dfs = "Поиск в глубину по индексу ";
     if(!DFS.empty()){
         dfs += QString::number(DFS[0]);
         for(int i{0}; i < DFS.size(); i++){
-            infoWindow->setItem(4, i+1, new QTableWidgetItem(QString::number(DFS[i])));
+            infoWindow->setItem(1, i+1, new QTableWidgetItem(QString::number(DFS[i])));
         }
     }
-    infoWindow->setItem(4, 0, new QTableWidgetItem(dfs));
+    infoWindow->setItem(1, 0, new QTableWidgetItem(dfs));
 
     QString bfs = "Поиск в ширину по индексу ";
     if(!BFS.empty()){
         bfs += QString::number(BFS[0]);
         for(int i{0}; i < BFS.size(); i++){
-            infoWindow->setItem(5, i+1, new QTableWidgetItem(QString::number(BFS[i])));
+            infoWindow->setItem(2, i+1, new QTableWidgetItem(QString::number(BFS[i])));
         }
     }
-    infoWindow->setItem(5, 0, new QTableWidgetItem(bfs));
+    infoWindow->setItem(2, 0, new QTableWidgetItem(bfs));
 
-    infoWindow->setItem(7, 0, new QTableWidgetItem("Матрица графа"));
-    infoWindow->item(7, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    infoWindow->setItem(4, 0, new QTableWidgetItem("Матрица графа"));
+    infoWindow->item(4, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     for(int i{0}; i < vertexNum; i++){
-        infoWindow->setItem(7, i+1, new QTableWidgetItem(QString::number(i)));
-        infoWindow->item(7, i+1)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        infoWindow->setItem(4, i+1, new QTableWidgetItem(QString::number(i)));
+        infoWindow->item(4, i+1)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     }
 
     for(int i{0}; i < vertexNum; i++){
-        infoWindow->setItem(8+i, 0, new QTableWidgetItem(QString::number(i)));
-        infoWindow->item(8+i, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        infoWindow->setItem(5+i, 0, new QTableWidgetItem(QString::number(i)));
+        infoWindow->item(5+i, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         for(int j{0}; j < vertexNum; j++){
-            infoWindow->setItem(8+i, 1+j, new QTableWidgetItem("0"));
-            infoWindow->item(8+i, 1+j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            infoWindow->setItem(5+i, 1+j, new QTableWidgetItem("0"));
+            infoWindow->item(5+i, 1+j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         }
         for(Edge *edge : vertexList[i]->getEdges()){
             int pos = edge->destVertex()->getIndex();
-            infoWindow->setItem(8+i, 1+pos, new QTableWidgetItem(QString::number(edge->getWeight())));
-            infoWindow->item(8+i, 1+pos)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            infoWindow->setItem(5+i, 1+pos, new QTableWidgetItem(QString::number(edge->getWeight())));
+            infoWindow->item(5+i, 1+pos)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         }
         infoWindow->setColumnWidth(i+1, 30);
     }
     infoWindow->setWindowTitle("Информационное окно графа");
+    infoWindow->horizontalHeader()->setVisible(false);
+    infoWindow->verticalHeader()->setVisible(false);
     infoWindow->setColumnWidth(0, 200);
     infoWindow->setFixedSize(QSize(600, 700));
     infoWindow->show();
@@ -711,34 +661,6 @@ void Graph::eraseVertexSignal(){
         return;
     }
     eraseVertex(srcIndex);
-}
-
-void Graph::createVertexInfoWindow(){
-    window = new QWidget;
-    input1 = new QLineEdit;
-    QLabel *label = new QLabel;
-    label -> setFrameStyle(QFrame::Box | QFrame::Plain);
-    QPushButton *okButton = new QPushButton(tr("OK"));
-
-    QGridLayout *layout = new QGridLayout;
-    layout->addWidget(new QLabel(tr("Индекс вершины:")), 0, 0);
-    layout->addWidget(input1, 0, 1);
-    layout->addWidget(okButton, 1, 1, Qt::AlignRight);
-    layout->setSizeConstraint(QLayout::SetFixedSize);
-    window->setLayout(layout);
-    window->setWindowTitle("Информационное окно вершины");
-
-    connect(okButton, &QPushButton::clicked, this, &Graph::vertexInfoSignal);
-    window->show();
-}
-
-void Graph::vertexInfoSignal(){
-    int index = input1->text().toInt();
-    window->close();
-    if(index >= vertexList.size()){
-        return;
-    }
-    getVertexInfo(index);
 }
 
 void Graph::createAddEdgeWindow(){

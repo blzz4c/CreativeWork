@@ -33,6 +33,7 @@
 #include <QDir>
 #include <QSaveFile>
 #include <QFileDialog>
+#include <QHeaderView>
 
 
 #include <windows.h>
@@ -80,7 +81,6 @@ protected:
 
     void reset();
 
-    void getVertexInfo(int vertexIndex);
     void getGraphInfo();
 
     void dfsUtil(int vertexIndex, QVector<bool> &visited);
@@ -94,7 +94,6 @@ protected:
     void delay(int time);
 
     void createEraseVertexWindow();
-    void createVertexInfoWindow();
     void createAddEdgeWindow();
     void createEraseEdgeWindow();
     void createUpdateWeightWindow();
@@ -104,7 +103,6 @@ protected:
     void createKommiWindow();
 private slots:
     void eraseVertexSignal();
-    void vertexInfoSignal();
     void addEdgeSignal();
     void eraseEdgeSignal();
     void updateWeightSignal();
