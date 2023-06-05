@@ -174,7 +174,7 @@ void Calendar::on_calendarWidget_clicked(const QDate &date)
 void Calendar::on_ShowCurrentDatesButton_clicked() {
     CurrentDate = "empty";//установка дата не выбрана
     string m_date = QDate::currentDate().toString("yyyy.MM.dd").toStdString();
-    ui->tableWidget->setRowCount(json.count() + 1);
+    ui->tableWidget->setRowCount(1);
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setItem(0, 0, new QTableWidgetItem("Название"));
     ui->tableWidget->item(0, 0)->setTextAlignment(Qt::AlignCenter);
@@ -183,8 +183,9 @@ void Calendar::on_ShowCurrentDatesButton_clicked() {
     int j = 1;
     for (auto i = json.begin(); i != json.end(); i++, j++) {
         if (i.key().toStdString().substr(0, 10) >= m_date) {
-            ui->tableWidget->setItem(j, 0, new QTableWidgetItem(i.value().toString()));
-            ui->tableWidget->setItem(j, 1, new QTableWidgetItem(i.key()));
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, new QTableWidgetItem(i.value().toString()));
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, new QTableWidgetItem(i.key()));
         }
     }
 }
