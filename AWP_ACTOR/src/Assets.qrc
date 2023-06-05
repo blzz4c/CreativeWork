@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Background">
+        <file>RNFSLG.jpg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
