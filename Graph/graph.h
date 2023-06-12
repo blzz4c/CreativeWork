@@ -76,29 +76,24 @@ protected:
     void eraseEdge(int source, int dest);
     bool checkAdjacent(int source, int dest);
     int getDegree(int vertexIndex);
-    void clear();
-    void checkConnected();
-
     void reset();
-
-    void getGraphInfo();
-
-    void dfsUtil(int vertexIndex, QVector<bool> &visited);
-    void dfs(int vertexIndex);
-
-    void bfsUtil(int vertexIndex, QVector<bool> &visited);
-    void bfs(int vertexIndex);
-
-    int kommi();
-
+    void clear();
     void delay(int time);
+    void checkConnected();
+    void getGraphAbout();
+
+    void DepthInit(int vertexIndex, QVector<bool> &visited);
+    void Depth_First_Search(int vertexIndex);
+    void BreadthInit(int vertexIndex, QVector<bool> &visited);
+    void Breadth_First_Search(int vertexIndex);
+    void kommi();
 
     void createEraseVertexWindow();
     void createAddEdgeWindow();
     void createEraseEdgeWindow();
     void createUpdateWeightWindow();
-    void createDFSWindow();
-    void createBFSWindow();
+    void createDepth_First_SearchWindow();
+    void createBreadth_First_SearchWindow();
     void createDijkstraWindow();
     void createKommiWindow();
 private slots:
@@ -106,8 +101,8 @@ private slots:
     void addEdgeSignal();
     void eraseEdgeSignal();
     void updateWeightSignal();
-    void dfsSignal();
-    void bfsSignal();
+    void depthSignal();
+    void breadthSignal();
     int dijkstraSignal();
     void kommiSignal();
 

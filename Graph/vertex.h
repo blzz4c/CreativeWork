@@ -22,19 +22,21 @@ public:
     Vertex(Graph *graph, int index);
     ~Vertex();
     void addEdge(Edge* edge);
-    QVector<Edge *> getEdges() const;
 
+    QVector<Edge *> getEdges() const;
     void calculateForces();
     bool advancePosition();
 
-    QString getColor();
-    void setColor(QString color);
-    int getDegree();
-    int getIndex();
-    void setIndex(int index);
-    QString getName();
-    void setName(QString name);
-    void setPosition(double xvel, double yvel);
+    QString getVertexColor();
+    int getVertexDegree();
+    int getVertexIndex();
+    QString getVertexName();
+
+    void setVertexColor(QString color);
+    void setVertexIndex(int index);
+    void setVertexName(QString name);
+    void setVertexPosition(double xvel, double yvel);
+
     void insertEdge(int dest, double weight);
     bool pathExist(int dest);
     void updateWeight(int dest, double weight);

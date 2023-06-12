@@ -72,17 +72,14 @@ void Graph::drawBackground(QPainter *painter, const QRectF &rect){
 
 void Graph::createTabWidget(const QRectF &rect){
     Q_UNUSED(rect);
-
     QRectF sceneRect = this -> sceneRect();
 
     QTabWidget *tab = new QTabWidget();
     tab->setGeometry(sceneRect.left(), sceneRect.top(), sceneRect.width()/6, sceneRect.height());
-
     QWidget *buildTab = new QWidget;
     QWidget *graphTab = new QWidget;
 
     tab->setAttribute(Qt::WA_StyledBackground);
-
     QFont textfont = QFont();
     textfont.setPointSize(12);
     tab -> setFont(textfont);
@@ -105,6 +102,8 @@ void Graph::createTabWidget(const QRectF &rect){
                                  "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(addEdgeButton, &QPushButton::clicked, this, &Graph::createAddEdgeWindow);
 
+    buildTabLayout->addWidget(addEdgeButton);
+
     QPushButton *updateWeightButton = new QPushButton();
     gridBuild->addWidget(updateWeightButton, 1, 0);
     updateWeightButton->setText(tr("Обновить\nвес"));
@@ -115,7 +114,7 @@ void Graph::createTabWidget(const QRectF &rect){
                                   "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(updateWeightButton, &QPushButton::clicked, this, &Graph::createUpdateWeightWindow);
 
-
+    buildTabLayout->addWidget(updateWeightButton);
 
     QPushButton *eraseEdgeButton = new QPushButton();
     gridBuild->addWidget(eraseEdgeButton, 2, 0);
@@ -127,8 +126,6 @@ void Graph::createTabWidget(const QRectF &rect){
                                  "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(eraseEdgeButton, &QPushButton::clicked, this, &Graph::createEraseEdgeWindow);
 
-    buildTabLayout->addWidget(addEdgeButton);
-    buildTabLayout->addWidget(updateWeightButton);
     buildTabLayout->addWidget(eraseEdgeButton);
 
     QPushButton *addVertexButton = new QPushButton();
@@ -141,6 +138,8 @@ void Graph::createTabWidget(const QRectF &rect){
                                    "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(addVertexButton, &QPushButton::clicked, this, &Graph::insertVertex);
 
+    buildTabLayout->addWidget(addVertexButton);
+
     QPushButton *eraseVertexButton = new QPushButton();
     gridBuild->addWidget(eraseVertexButton, 1, 1);
     eraseVertexButton->setText(tr("Удалить\nвершину"));
@@ -152,7 +151,6 @@ void Graph::createTabWidget(const QRectF &rect){
 
     connect(eraseVertexButton, &QPushButton::clicked, this, &Graph::createEraseVertexWindow);
 
-    buildTabLayout->addWidget(addVertexButton);
     buildTabLayout->addWidget(eraseVertexButton);
 
     QGridLayout *gridGraph = new QGridLayout();
@@ -167,7 +165,9 @@ void Graph::createTabWidget(const QRectF &rect){
     dfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
                              "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-    connect(dfsButton, &QPushButton::clicked, this, &Graph::createDFSWindow);
+    connect(dfsButton, &QPushButton::clicked, this, &Graph::createDepth_First_SearchWindow);
+
+    graphTabLayout->addWidget(dfsButton);
 
     QToolButton *bfsButton = new QToolButton();
     gridGraph->addWidget(bfsButton, 1, 0);
@@ -177,7 +177,8 @@ void Graph::createTabWidget(const QRectF &rect){
     bfsButton->setStyleSheet("QToolButton:selected, QToolButton:hover{color: darkGreen;} "
                              "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-    connect(bfsButton, &QPushButton::clicked, this, &Graph::createBFSWindow);
+    connect(bfsButton, &QPushButton::clicked, this, &Graph::createBreadth_First_SearchWindow);
+    graphTabLayout->addWidget(bfsButton);
 
     QToolButton *dijkstraButton = new QToolButton();
     gridGraph->addWidget(dijkstraButton, 2, 0);
@@ -188,6 +189,7 @@ void Graph::createTabWidget(const QRectF &rect){
                              "QToolButton:pressed{background-color: lightGreen;} "
                              "QToolButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(dijkstraButton, &QPushButton::clicked, this, &Graph::createDijkstraWindow);
+    graphTabLayout->addWidget(dijkstraButton);
 
     QToolButton *kommiButton = new QToolButton();
     gridGraph->addWidget(kommiButton, 3, 0);
@@ -208,6 +210,7 @@ void Graph::createTabWidget(const QRectF &rect){
                              "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(resetButton, &QPushButton::clicked, this, &Graph::reset);
+    graphTabLayout->addWidget(resetButton);
 
     QPushButton *clearButton = new QPushButton();
     gridGraph->addWidget(clearButton, 1, 1);
@@ -218,6 +221,7 @@ void Graph::createTabWidget(const QRectF &rect){
                              "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
     connect(clearButton, &QPushButton::clicked, this, &Graph::clear);
+    graphTabLayout->addWidget(clearButton);
 
     QPushButton *graphInfoButton = new QPushButton();
     gridGraph->addWidget(graphInfoButton, 2, 1);
@@ -227,13 +231,7 @@ void Graph::createTabWidget(const QRectF &rect){
     graphInfoButton->setStyleSheet("QPushButton:selected, QPushButton:hover{color: darkGreen;} "
                              "QPushButton:pressed{background-color: lightGreen;} "
                              "QPushButton{height: 30px; width: 30px; background-color: lightGray; border-right, border-bottom: 4px solid Gray;}");
-    connect(graphInfoButton, &QPushButton::clicked, this, &Graph::getGraphInfo);
-
-    graphTabLayout->addWidget(dfsButton);
-    graphTabLayout->addWidget(bfsButton);
-    graphTabLayout->addWidget(dijkstraButton);
-    graphTabLayout->addWidget(resetButton);
-    graphTabLayout->addWidget(clearButton);
+    connect(graphInfoButton, &QPushButton::clicked, this, &Graph::getGraphAbout);
     graphTabLayout->addWidget(graphInfoButton);
 
     buildTab->setLayout(gridBuild);
@@ -265,14 +263,14 @@ void Graph::insertVertex(){
 
 void Graph::updateIndex(){
     for(int i{0}; i < vertexList.size(); i++){
-        vertexList[i] -> setIndex(i);
+        vertexList[i] -> setVertexIndex(i);
     }
 }
 
 void Graph::eraseVertex(int vertexIndex){
     Vertex *temp = vertexList[vertexIndex];
     for(Edge *edge : temp->getEdges()){
-        eraseEdge(vertexIndex, edge->destVertex()->getIndex());
+        eraseEdge(vertexIndex, edge->destVertex()->getVertexIndex());
     }
     temp->clearEdge();
     scene->removeItem(temp);
@@ -282,7 +280,7 @@ void Graph::eraseVertex(int vertexIndex){
     vertexNum--;
 }
 
-void Graph::getGraphInfo(){
+void Graph::getGraphAbout(){
     int rows = vertexList.size() + 5;
     int cols = vertexList.size() + 1;
     QTableWidget *infoWindow = new QTableWidget(rows, cols);
@@ -333,8 +331,8 @@ void Graph::getGraphInfo(){
             infoWindow->item(5+i, 1+j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         }
         for(Edge *edge : vertexList[i]->getEdges()){
-            int pos = edge->destVertex()->getIndex();
-            infoWindow->setItem(5+i, 1+pos, new QTableWidgetItem(QString::number(edge->getWeight())));
+            int pos = edge->destVertex()->getVertexIndex();
+            infoWindow->setItem(5+i, 1+pos, new QTableWidgetItem(QString::number(edge->getEdgeWeight())));
             infoWindow->item(5+i, 1+pos)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         }
         infoWindow->setColumnWidth(i+1, 30);
@@ -371,13 +369,13 @@ void Graph::eraseEdge(int source, int dest){
         return;
     }
     for(Edge *edge : vertexList[source]->getEdges()){
-        if(edge -> destVertex() ->getIndex() == dest){
+        if(edge -> destVertex() ->getVertexIndex() == dest){
             vertexList[source]->eraseEdge(dest);
             scene->removeItem(edge);
         }
     }
     for(Edge *edge : vertexList[dest]->getEdges()){
-        if(edge -> destVertex() ->getIndex() == source){
+        if(edge -> destVertex() ->getVertexIndex() == source){
             vertexList[dest]->eraseEdge(source);
             scene->removeItem(edge);
         }
@@ -390,7 +388,7 @@ bool Graph::checkAdjacent(int source, int dest){
 }
 
 int Graph::getDegree(int vertexIndex){
-    return vertexList[vertexIndex]->getDegree();
+    return vertexList[vertexIndex]->getVertexDegree();
 }
 
 void Graph::clear(){
@@ -403,7 +401,7 @@ void Graph::checkConnected(){
     connected = true;
     for(Vertex *vertex : vertexList){
         bool visited = false;
-        if(vertex->getColor() == "black"){
+        if(vertex->getVertexColor() == "black"){
             visited = true;
         }
         connected &= visited;
@@ -415,14 +413,14 @@ void Graph::reset(){
         return;
     }
     for(int i{0}; i < vertexList.size(); i++){
-        vertexList[i] -> setColor("white");
+        vertexList[i] -> setVertexColor("white");
         for(Edge *edge : vertexList[i]->getEdges()){
-            edge -> setColor("white");
+            edge -> setEdgeColor("white");
         }
     }
 }
 
-void Graph::dfsUtil(int vertexIndex, QVector<bool> &visited){
+void Graph::DepthInit(int vertexIndex, QVector<bool> &visited){
     QStack<int> dfsStack;
     dfsStack.push(vertexIndex);
     while(!dfsStack.empty()){
@@ -431,28 +429,28 @@ void Graph::dfsUtil(int vertexIndex, QVector<bool> &visited){
         dfsStack.pop();
         if(!visited[temp]){
             visited[temp] = true;
-            vertexList[temp]->setColor("black");
+            vertexList[temp]->setVertexColor("black");
             DFS.push_back(temp);
             delay(50);
         }
         for(Edge *tempEdge : tempVertex->getEdges()){
-            if(!visited[tempEdge -> destVertex() -> getIndex()]){
-                tempEdge->destVertex()->setColor("lightGray");
+            if(!visited[tempEdge -> destVertex() -> getVertexIndex()]){
+                tempEdge->destVertex()->setVertexColor("lightGray");
                 delay(70);
-                dfsStack.push(tempEdge->destVertex()->getIndex());
+                dfsStack.push(tempEdge->destVertex()->getVertexIndex());
             }
         }
     }
 }
 
-void Graph::dfs(int vertexIndex){
+void Graph::Depth_First_Search(int vertexIndex){
     DFS.clear();
     QVector<bool> visited(vertexList.size(), false);
-    dfsUtil(vertexIndex, visited);
+    DepthInit(vertexIndex, visited);
     checkConnected();
 }
 
-void Graph::bfsUtil(int vertexIndex, QVector<bool> &visited){
+void Graph::BreadthInit(int vertexIndex, QVector<bool> &visited){
     QQueue<int> bfsQueue;
     bfsQueue.push_back(vertexIndex);
     while(!bfsQueue.empty()){
@@ -462,24 +460,24 @@ void Graph::bfsUtil(int vertexIndex, QVector<bool> &visited){
         bfsQueue.pop_front();
         if(!visited[temp]){
             visited[temp] = true;
-            tempVertex->setColor("black");
+            tempVertex->setVertexColor("black");
             BFS.push_back(temp);
             delay(50);
         }
         for(Edge *tempEdge : tempVertex->getEdges()){
-            if(!visited[tempEdge -> destVertex() -> getIndex()]){
-                tempEdge->destVertex()->setColor("lightGray");
-                bfsQueue.push_back(tempEdge->destVertex()->getIndex());
+            if(!visited[tempEdge -> destVertex() -> getVertexIndex()]){
+                tempEdge->destVertex()->setVertexColor("lightGray");
+                bfsQueue.push_back(tempEdge->destVertex()->getVertexIndex());
                 delay(70);
             }
         }
     }
 }
 
-void Graph::bfs(int vertexIndex){
+void Graph::Breadth_First_Search(int vertexIndex){
     BFS.clear();
     QVector<bool> visited(vertexList.size(), false);
-    bfsUtil(vertexIndex, visited);
+    BreadthInit(vertexIndex, visited);
     checkConnected();
 }
 
@@ -501,10 +499,10 @@ QVector<int> Graph::dijkstra(int vertexIndex){
         for(int i=0;i<edge_count;i++){
             Edge* e = vertexList[Curr_vertex]->getEdges()[i];
             Vertex* dest = e->destVertex();
-            if(Adj_matrix[vertexIndex][Curr_vertex]+e->getWeight()<Adj_matrix[vertexIndex][dest->getIndex()]){
-                int old = Adj_matrix[vertexIndex][dest->getIndex()];
-                Adj_matrix[vertexIndex][dest->getIndex()] = Adj_matrix[vertexIndex][Curr_vertex]+e->getWeight();
-                queue.update(old,dest->getIndex(),Adj_matrix[vertexIndex][dest->getIndex()]);
+            if(Adj_matrix[vertexIndex][Curr_vertex]+e->getEdgeWeight()<Adj_matrix[vertexIndex][dest->getVertexIndex()]){
+                int old = Adj_matrix[vertexIndex][dest->getVertexIndex()];
+                Adj_matrix[vertexIndex][dest->getVertexIndex()] = Adj_matrix[vertexIndex][Curr_vertex]+e->getEdgeWeight();
+                queue.update(old,dest->getVertexIndex(),Adj_matrix[vertexIndex][dest->getVertexIndex()]);
             }
         }
     }
@@ -517,7 +515,7 @@ QVector<int> Graph::dijkstra(int vertexIndex){
 
 
 
-int Graph::kommi() {
+void Graph::kommi() {
     int **Adj_matrix = new int*[vertexNum] {};
     int ** origAdj_matrix = new int*[vertexNum] {};
     for (int i = 0; i < vertexNum; i++) {
@@ -526,8 +524,8 @@ int Graph::kommi() {
     }
     for (Vertex* i : vertexList) {
             for (Edge* j: i->getEdges()) {
-                Adj_matrix[i->getIndex()][j->destVertex()->getIndex()] = j->getWeight();
-                origAdj_matrix[i->getIndex()][j->destVertex()->getIndex()] = j->getWeight();
+                Adj_matrix[i->getVertexIndex()][j->destVertex()->getVertexIndex()] = j->getEdgeWeight();
+                origAdj_matrix[i->getVertexIndex()][j->destVertex()->getVertexIndex()] = j->getEdgeWeight();
             }
     }
     bool ToContinue = (vertexNum > 2);
@@ -654,15 +652,6 @@ void Graph::createEraseVertexWindow(){
     window->show();
 }
 
-void Graph::eraseVertexSignal(){
-    int srcIndex = input1->text().toInt();
-    window -> close();
-    if(srcIndex >= vertexList.size()){
-        return;
-    }
-    eraseVertex(srcIndex);
-}
-
 void Graph::createAddEdgeWindow(){
     window = new QWidget;
     input1 = new QLineEdit;
@@ -688,17 +677,6 @@ void Graph::createAddEdgeWindow(){
     window->show();
 }
 
-void Graph::addEdgeSignal(){
-    int srcIndex = input1->text().toInt();
-    int destIndex = input2->text().toInt();
-    double edgeWeight = input3->text().toDouble();
-    window->close();
-    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size() || edgeWeight <= 0){
-        return;
-    }
-    insertEdge(srcIndex, destIndex, edgeWeight);
-}
-
 void Graph::createEraseEdgeWindow(){
     window = new QWidget;
     input1 = new QLineEdit;
@@ -719,16 +697,6 @@ void Graph::createEraseEdgeWindow(){
 
     connect(okButton, &QPushButton::clicked, this, &Graph::eraseEdgeSignal);
     window->show();
-}
-
-void Graph::eraseEdgeSignal(){
-    int srcIndex = input1->text().toInt();
-    int destIndex = input2->text().toInt();
-    window->close();
-    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size()){
-        return;
-    }
-    eraseEdge(srcIndex, destIndex);
 }
 
 void Graph::createUpdateWeightWindow(){
@@ -756,18 +724,7 @@ void Graph::createUpdateWeightWindow(){
     window->show();
 }
 
-void Graph::updateWeightSignal(){
-    int srcIndex = input1->text().toInt();
-    int destIndex = input2->text().toInt();
-    double edgeWeight = input3->text().toDouble();
-    window->close();
-    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size() || edgeWeight <= 0){
-        return;
-    }
-    updateWeight(srcIndex, destIndex, edgeWeight);
-}
-
-void Graph::createDFSWindow(){
+void Graph::createDepth_First_SearchWindow(){
     window = new QWidget;
     input1 = new QLineEdit;
     QLabel *label = new QLabel;
@@ -782,20 +739,11 @@ void Graph::createDFSWindow(){
     window->setLayout(layout);
     window->setWindowTitle("Окно ПвГ");
 
-    connect(okButton, &QPushButton::clicked, this, &Graph::dfsSignal);
+    connect(okButton, &QPushButton::clicked, this, &Graph::depthSignal);
     window->show();
 }
 
-void Graph::dfsSignal(){
-    int index = input1->text().toInt();
-    window->close();
-    if(index >= vertexList.size()){
-        return;
-    }
-    dfs(index);
-}
-
-void Graph::createBFSWindow(){
+void Graph::createBreadth_First_SearchWindow(){
     window = new QWidget;
     input1 = new QLineEdit;
     QLabel *label = new QLabel;
@@ -810,7 +758,7 @@ void Graph::createBFSWindow(){
     window->setLayout(layout);
     window->setWindowTitle("Окно ПвШ");
 
-    connect(okButton, &QPushButton::clicked, this, &Graph::bfsSignal);
+    connect(okButton, &QPushButton::clicked, this, &Graph::breadthSignal);
     window->show();
 }
 
@@ -854,13 +802,63 @@ void Graph::createKommiWindow()
     window->show();
 }
 
-void Graph::bfsSignal(){
+void Graph::eraseVertexSignal(){
+    int srcIndex = input1->text().toInt();
+    window -> close();
+    if(srcIndex >= vertexList.size()){
+        return;
+    }
+    eraseVertex(srcIndex);
+}
+
+void Graph::addEdgeSignal(){
+    int srcIndex = input1->text().toInt();
+    int destIndex = input2->text().toInt();
+    double edgeWeight = input3->text().toDouble();
+    window->close();
+    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size() || edgeWeight <= 0){
+        return;
+    }
+    insertEdge(srcIndex, destIndex, edgeWeight);
+}
+
+void Graph::eraseEdgeSignal(){
+    int srcIndex = input1->text().toInt();
+    int destIndex = input2->text().toInt();
+    window->close();
+    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size()){
+        return;
+    }
+    eraseEdge(srcIndex, destIndex);
+}
+
+void Graph::updateWeightSignal(){
+    int srcIndex = input1->text().toInt();
+    int destIndex = input2->text().toInt();
+    double edgeWeight = input3->text().toDouble();
+    window->close();
+    if(srcIndex >= vertexList.size() || destIndex >= vertexList.size() || edgeWeight <= 0){
+        return;
+    }
+    updateWeight(srcIndex, destIndex, edgeWeight);
+}
+
+void Graph::depthSignal(){
     int index = input1->text().toInt();
     window->close();
     if(index >= vertexList.size()){
         return;
     }
-    bfs(index);
+    Depth_First_Search(index);
+}
+
+void Graph::breadthSignal(){
+    int index = input1->text().toInt();
+    window->close();
+    if(index >= vertexList.size()){
+        return;
+    }
+    Breadth_First_Search(index);
 }
 
 int Graph::dijkstraSignal()

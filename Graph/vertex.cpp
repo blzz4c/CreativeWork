@@ -20,32 +20,46 @@ Vertex::~Vertex(){
     degree = 0;
 }
 
-QString Vertex::getColor(){
+QString Vertex::getVertexColor(){
     return this -> color;
 }
 
-void Vertex::setColor(QString color){
+QString Vertex::getVertexName(){
+    return name;
+}
+
+QVector<Edge *> Vertex::getEdges() const{
+    return edgeList;
+}
+
+int Vertex::getVertexDegree(){
+    return degree;
+}
+
+int Vertex::getVertexIndex(){
+    return vertexIndex;
+}
+
+void Vertex::setVertexColor(QString color){
     this -> color = color;
     qApp->processEvents();
     update();
 }
 
-QString Vertex::getName(){
-    return name;
+void Vertex::setVertexName(QString name){
+    this -> name = name;
 }
 
-void Vertex::setName(QString name){
-    this -> name = name;
+void Vertex::setVertexIndex(int index){
+    vertexIndex = index;
+    qApp->processEvents();
+    update();
 }
 
 void Vertex::addEdge(Edge *edge){
     edgeList << edge;
     edge -> adjust();
     degree ++;
-}
-
-QVector<Edge *> Vertex::getEdges() const{
-    return edgeList;
 }
 
 void Vertex::calculateForces(){
@@ -90,34 +104,13 @@ bool Vertex::advancePosition(){
     return true;
 }
 
-int Vertex::getDegree(){
-    return degree;
-}
-
-int Vertex::getIndex(){
-    return vertexIndex;
-}
-
-void Vertex::setIndex(int index){
-    vertexIndex = index;
-    qApp->processEvents();
-    update();
-}
-
 bool Vertex::pathExist(int dest){
     for(Edge *temp : edgeList){
-        if(temp -> destVertex() -> getIndex() == dest){
+        if(temp -> destVertex() -> getVertexIndex() == dest){
             return true;
         }
     }
     return false;
-}
-
-void Vertex::setPosition(double xvel, double yvel){
-    QRectF sceneRect = scene()->sceneRect();
-    newPos = pos() + QPointF(xvel, yvel);
-    newPos.setX(qMin(qMax(newPos.x(), sceneRect.left() + 10), sceneRect.right() - 10));
-    newPos.setY(qMin(qMax(newPos.y(), sceneRect.top() + 145), sceneRect.bottom() - 10));
 }
 
 void Vertex::insertEdge(int dest, double weight){
@@ -127,7 +120,7 @@ void Vertex::insertEdge(int dest, double weight){
         if(!temp){
             continue;
         }
-        if(temp->getIndex() == dest){
+        if(temp->getVertexIndex() == dest){
             Edge *edge = new Edge(this, temp, weight);
             edgeList.append(edge);
             return;
@@ -137,8 +130,8 @@ void Vertex::insertEdge(int dest, double weight){
 
 void Vertex::updateWeight(int dest, double weight){
     for(Edge *temp : edgeList){
-        if(temp -> destVertex() -> getIndex() == dest){
-            temp -> setWeight(weight);
+        if(temp -> destVertex() -> getVertexIndex() == dest){
+            temp -> setEdgeWeight(weight);
         }
     }
 }
@@ -147,10 +140,8 @@ void Vertex::eraseEdge(int dest){
     if(!pathExist(dest)){
         return;
     }
-    //not sure y QVector<Edge *>::iterator cannot be used here????
     for(int i{0}; i < edgeList.size(); i++){
-        if(edgeList[i] -> destVertex() -> getIndex() == dest){
-            //QVector<Edge *>::iterator target = edgeList.begin();
+        if(edgeList[i] -> destVertex() -> getVertexIndex() == dest){
             edgeList.erase(edgeList.begin() + i);
         }
     }
@@ -165,8 +156,8 @@ void Vertex::clearEdge(){
 
 void Vertex::changeEdgeColor(int dest){
     for(Edge *edge : edgeList){
-        if(edge->destVertex()->getIndex() == dest){
-            edge->setColor("black");
+        if(edge->destVertex()->getVertexIndex() == dest){
+            edge->setEdgeColor("black");
         }
     }
 }
@@ -189,7 +180,6 @@ void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->drawEllipse(-7, -7, 20, 20);
 
     QRadialGradient gradient(-3, -3, 10);
-//    prepareGeometryChange();
     if (option->state & QStyle::State_Sunken) {
         gradient.setCenter(3, 3);
         gradient.setFocalPoint(3, 3);
@@ -224,7 +214,6 @@ void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->setBrush(gradient);
     painter->setPen(QPen(Qt::black, 0));
     painter->drawEllipse(-10, -10, 20, 20);
-//    prepareGeometryChange();
     QString index = QString::number(vertexIndex);
     painter->drawText(QRect(-10, -10, 20, 20), Qt::AlignCenter, index);
 }

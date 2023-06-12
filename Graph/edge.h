@@ -27,10 +27,12 @@ public:
 
     Vertex *sourceVertex() const;
     Vertex *destVertex() const;
-    double getWeight();
-    void setWeight(double w);
-    QString getColor();
-    void setColor(QString color);
+
+    double getEdgeWeight();
+    QString getEdgeColor();
+
+    void setEdgeWeight(double w);
+    void setEdgeColor(QString color);
 
 protected:
     QRectF boundingRect() const override;

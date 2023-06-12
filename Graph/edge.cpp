@@ -7,8 +7,6 @@
 
 #define M_PI 3.1415926
 
-
-
 Edge::Edge(Vertex *source, Vertex *dest, double weight){
     this->source = source;
     this->dest = dest;
@@ -85,19 +83,19 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     painter->drawText(QRectF(QPointF(sourcePoint.x() - 15, sourcePoint.y() - 15), QPointF(destPoint.x() + 15, destPoint.y() + 15)), Qt::AlignCenter, QString::number(weight));
 }
 
-double Edge::getWeight(){
+double Edge::getEdgeWeight(){
     return weight;
 }
 
-void Edge::setWeight(double w){
-    weight = w;
-}
-
-QString Edge::getColor(){
+QString Edge::getEdgeColor(){
     return color;
 }
 
-void Edge::setColor(QString color){
+void Edge::setEdgeWeight(double w){
+    weight = w;
+}
+
+void Edge::setEdgeColor(QString color){
     this -> color = color;
     qApp->processEvents();
     update();
